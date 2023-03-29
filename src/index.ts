@@ -33,6 +33,10 @@ class Tree {
       throw new Error(`Cannot add a child to a leaf-only node with id: ${parentId}`);
     }
 
+    if (this.findNode(id) !== null) {
+      throw new Error(`Cannot add a node with id: ${id} because it already exists`);
+    }
+
     const parentNode = this.findNode(parentId);
     if (parentNode === null) {
       return null;

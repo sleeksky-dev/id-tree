@@ -17,6 +17,16 @@ describe('Tree', () => {
     expect(tree.findNode(6)).toBeNull();
   });
 
+  test('Adding duplicate nodes should throw an error', () => {
+    const tree = new Tree();
+    tree.setRoot(1);
+    tree.addNode(1, 2);
+    expect(() => {
+      tree.addNode(1, 2);
+    }
+    ).toThrowError('Cannot add a node with id: 2 because it already exists');
+  });
+
   test('Setting leaf nodes and fixing tree', () => {
     const tree = new Tree();
     tree.setRoot(1);
