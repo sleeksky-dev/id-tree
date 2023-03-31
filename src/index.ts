@@ -210,6 +210,36 @@ class Tree {
     }
     return tree;
   }
+
+  static fromMap(rootId: number, pairs: [number, number][]): Tree {
+    const tree = new Tree();
+    tree.setRoot(rootId);
+  
+    let addedNodes: Set<number> = new Set([rootId]);
+    let remainingPairs = pairs.slice();
+  
+    while (remainingPairs.length > 0) {
+      const updatedPairs: [number, number][] = [];
+  
+      for (const [parentId, id] of remainingPairs) {
+        if (addedNodes.has(parentId)) {
+          tree.addNode(parentId, id);
+          addedNodes.add(id);
+        } else {
+          updatedPairs.push([parentId, id]);
+        }
+      }
+  
+      if (remainingPairs.length === updatedPairs.length) {
+        break;
+      }
+  
+      remainingPairs = updatedPairs;
+    }
+  
+    return tree;
+  }
+
 }
 
 export { Tree }

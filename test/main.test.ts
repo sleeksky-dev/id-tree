@@ -150,3 +150,48 @@ describe('Tree', () => {
     }).not.toThrowError('Cannot add a child to a leaf-only node with id: 2');
   });
 });
+
+describe('Tree - fromMap', () => {
+  test('Basic tree structure', () => {
+    const rootId = 1;
+    const pairs: [number, number][] = [
+      [1, 2],
+      [2, 3],
+    ];
+
+    const tree = Tree.fromMap(rootId, pairs);
+
+    expect(tree.root).not.toBeNull();
+    expect(tree.root?.id).toBe(1);
+    expect(tree.root?.children.length).toBe(1);
+    expect(tree.root?.children[0].id).toBe(2);
+    expect(tree.root?.children[0].children.length).toBe(1);
+    expect(tree.root?.children[0].children[0].id).toBe(3);
+  });
+
+  test('Empty pairs array', () => {
+    const rootId = 1;
+    const pairs: [number, number][] = [];
+
+    const tree = Tree.fromMap(rootId, pairs);
+
+    expect(tree.root).not.toBeNull();
+    expect(tree.root?.id).toBe(1);
+    expect(tree.root?.children.length).toBe(0);
+  });
+
+  test('Invalid rootId', () => {
+    const rootId = 100;
+    const pairs: [number, number][] = [
+      [1, 2],
+      [1, 3],
+      [2, 4],
+      [2, 5],
+      [3, 6],
+    ];
+    const tree = Tree.fromMap(rootId, pairs);
+    expect(tree.root).not.toBeNull();
+    expect(tree.root?.id).toBe(100);
+    expect(tree.root?.children.length).toBe(0);
+  });
+});

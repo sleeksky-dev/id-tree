@@ -100,6 +100,13 @@ To deserialize a tree from a compact object format, use the fromObj method:
 const restoredTree = Tree.fromObj(compactObj);
 ```
 
+To deserialize a tree from a map of nodes, use the fromMap method:
+
+```typescript
+let rootId = 100;
+let pairs = [[100, 1], [1, 2]]
+const tree = Tree.fromMap([rootId, pairs]);
+```
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or create an issue on the project's GitHub repository.
