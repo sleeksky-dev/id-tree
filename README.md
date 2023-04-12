@@ -122,3 +122,37 @@ If you need assistance or have any questions, please create an issue on the proj
 ## Attribution
 
 This library - the code, test cases, and this documentation - were all written by ChatGPT. Atleast the v1.
+
+### I used the following prompts to build this library (the main ones) - 
+
+> can you write an ordered tree implementation in typescript where the only data contained in each node is the "id" of type number?
+
+> For the above implementation, how to restore a tree from a JSON?
+
+> Now in the above implementation, include the following methods - 
+> 1. setLeafs - here you pass and array of id's that cannot have children, this is leaf only nodes
+> 2. fixTree - if the tree has any node with id in the leaf only array, it should move all children to the parent
+> Add validation in addNode to throw error if it is being added to a lead only node
+
+> I need couple of methods to store this tree and restore this tree - 
+> - toCompact - this provides a compact representation of this tree to store in database
+> - fromCompact - this recreates the tree from a compact data representation
+
+> include following method - 
+> move(node_id, parent_id, index) - this method moves the entire sub tree of node with id node_id to the node with id=parent_id at the index position of its children. If index is undefined, add as last child.
+
+> Combine all the functionality mentioned above and write out the complete code
+
+> Following is the complete code of what you implemented above, please write a comprehensive set of test cases using the jest library 
+
+> continue writing the missing test cases
+
+> The test case "Compact array representation with leaf-only nodes" is failing because the leafs are not being stored when compacted. Can you find the problem in my code?
+
+> Can you fix the same issue with this test case - 'Compact object representation with leaf-only nodes'
+
+> seems I don't need to store the leafs when i compact. can you write the toArray, fromArray, toObj and fromObj so it does not store that
+
+> if i want to publish this tree implementation as an npm package, list few good names for it
+
+> I am going to call this `id-tree`. Write me a README.md documentation for this library
