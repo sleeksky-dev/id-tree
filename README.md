@@ -123,7 +123,9 @@ If you need assistance or have any questions, please create an issue on the proj
 
 This library - the code, test cases, and this documentation - were all written by ChatGPT. Atleast the v1.
 
-### I used the following prompts to build this library (the main ones) - 
+## ChatGPT Prompts
+
+I used the following prompts to build this library (the main ones) - 
 
 > can you write an ordered tree implementation in typescript where the only data contained in each node is the "id" of type number?
 
