@@ -30,7 +30,7 @@ class Tree {
 
   addNode(parentId: number, id: number): TreeNode | null {
     if (this.leafOnlyIds.has(parentId)) {
-      throw new Error(`Cannot add a child to a leaf-only node with id: ${parentId}`);
+      parentId = this.root?.id || 0;
     }
 
     if (this.findNode(id) !== null) {
@@ -215,28 +215,10 @@ class Tree {
   static fromMap(rootId: number, pairs: [number, number][]): Tree {
     const tree = new Tree();
     tree.setRoot(rootId);
-  
-    let addedNodes: Set<number> = new Set([rootId]);
-    let remainingPairs = pairs.slice();
-  
-    while (remainingPairs.length > 0) {
-      const updatedPairs: [number, number][] = [];
-  
-      for (const [parentId, id] of remainingPairs) {
-        if (addedNodes.has(parentId)) {
-          tree.addNode(parentId, id);
-          addedNodes.add(id);
-        } else {
-          updatedPairs.push([parentId, id]);
-        }
-      }
-  
-      if (remainingPairs.length === updatedPairs.length) {
-        break;
-      }
-  
-      remainingPairs = updatedPairs;
-    }
+
+    for (const [ , id] of pairs) tree.addNode(rootId, id);
+
+    for (const [parentId, id] of pairs) tree.move(id, parentId);   
   
     return tree;
   }

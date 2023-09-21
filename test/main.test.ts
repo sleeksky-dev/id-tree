@@ -93,7 +93,7 @@ describe('Tree', () => {
   });
 
 
-  test('Adding a child to a leaf-only node should throw an error', () => {
+  test('Adding a child to a leaf-only node should add the child to root', () => {
     const tree = new Tree();
     tree.setRoot(1);
     tree.addNode(1, 2);
@@ -101,9 +101,14 @@ describe('Tree', () => {
 
     tree.setLeafs([3]);
 
-    expect(() => {
-      tree.addNode(3, 4);
-    }).toThrowError('Cannot add a child to a leaf-only node with id: 3');
+    tree.addNode(3, 4);
+
+    expect(tree.root?.children[2].id).toBe(4);
+  });
+
+  test('Adding a node with invalid parent should add the node to root', () => {
+    const tree = Tree.fromMap(0, [[999,1],[0,2]])
+    expect(tree.root?.children[0].id).toBe(1);
   });
 
   test('Compact array representation with no leaf-only nodes', () => {
@@ -192,6 +197,7 @@ describe('Tree - fromMap', () => {
     const tree = Tree.fromMap(rootId, pairs);
     expect(tree.root).not.toBeNull();
     expect(tree.root?.id).toBe(100);
-    expect(tree.root?.children.length).toBe(0);
+    // this still works as nodes are always added. Here the node id 1 becomes invalid
+    expect(tree.root?.children.length).toBe(2);
   });
 });
