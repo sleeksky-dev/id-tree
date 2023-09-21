@@ -37,10 +37,11 @@ class Tree {
       throw new Error(`Cannot add a node with id: ${id} because it already exists`);
     }
 
-    const parentNode = this.findNode(parentId);
+    let parentNode = this.findNode(parentId);
     if (parentNode === null) {
-      return null;
+      parentNode = this.root;
     }
+    if (!parentNode) return null;
 
     const newNode = new TreeNode(id);
     parentNode.addChild(newNode);

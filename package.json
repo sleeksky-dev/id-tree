@@ -1,6 +1,6 @@
 {
   "name": "id-tree",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "id based ordered tree, with support for moving nodes and marking leaf only nodes",
   "main": "dist/index.js",
   "module": "esm/index.js",
