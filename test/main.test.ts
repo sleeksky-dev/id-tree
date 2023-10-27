@@ -201,3 +201,47 @@ describe('Tree - fromMap', () => {
     expect(tree.root?.children.length).toBe(2);
   });
 });
+
+describe('Tree', () => {
+  describe('bfsOrder', () => {
+    it('returns an empty array for an empty tree', () => {
+      const tree = new Tree();
+      expect(tree.bfsOrder()).toEqual([]);
+    });
+
+    it('returns an array of node ids in BFS order', () => {
+      const tree = new Tree();
+      tree.setRoot(0)
+      tree.addNode(0,1);
+      tree.addNode(0,2);
+      tree.addNode(0,3);
+      tree.addNode(1,4);
+      tree.addNode(1,5);
+      tree.addNode(3,6);
+      tree.addNode(3,7);
+      expect(tree.bfsOrder()).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    });
+  });
+});
+
+describe('Tree', () => {
+  describe('dfsOrder', () => {
+    it('returns an empty array for an empty tree', () => {
+      const tree = new Tree();
+      expect(tree.dfsOrder()).toEqual([]);
+    });
+
+    it('returns an array of node ids in DFS order', () => {
+      const tree = new Tree();
+      tree.setRoot(0)
+      tree.addNode(0,1);
+      tree.addNode(0,2);
+      tree.addNode(0,3);
+      tree.addNode(1,4);
+      tree.addNode(1,5);
+      tree.addNode(3,6);
+      tree.addNode(3,7);
+      expect(tree.dfsOrder()).toEqual([0, 1, 4, 5, 2, 3, 6, 7]);
+    });
+  });
+});

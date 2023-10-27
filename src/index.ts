@@ -67,6 +67,43 @@ class Tree {
     return null;
   }
 
+  bfsOrder(): number[] {
+    const queue: TreeNode[] = [];
+    const result: number[] = [];
+  
+    if (this.root) {
+      queue.push(this.root);
+    }
+  
+    while (queue.length > 0) {
+      const node = queue.shift()!;
+      result.push(node.id);
+  
+      for (const child of node.children) {
+        queue.push(child);
+      }
+    }
+  
+    return result;
+  }
+  
+  dfsOrder(): number[] {
+    const result: number[] = [];
+  
+    const traverse = (node: TreeNode) => {
+      result.push(node.id);
+      for (const child of node.children) {
+        traverse(child);
+      }
+    };
+  
+    if (this.root) {
+      traverse(this.root);
+    }
+  
+    return result;
+  }  
+
   setLeafs(ids: number[]): void {
     this.leafOnlyIds = new Set(ids);
     this.fixTree(this.root);
