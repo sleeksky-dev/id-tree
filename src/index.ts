@@ -67,40 +67,41 @@ class Tree {
     return null;
   }
 
-  bfsOrder(): number[] {
-    const queue: TreeNode[] = [];
-    const result: number[] = [];
+  bfsOrder(includeLevel = false): number[] | [number, number][] {
+    const queue: [TreeNode, number][] = [];
+    const result: [number, number][] = [];
   
     if (this.root) {
-      queue.push(this.root);
+      queue.push([this.root, 0]);
     }
   
     while (queue.length > 0) {
-      const node = queue.shift()!;
-      result.push(node.id);
+      const [node, level] = queue.shift()!;
+      result.push([node.id, level]);
   
       for (const child of node.children) {
-        queue.push(child);
+        queue.push([child, level + 1]);
       }
     }
-  
+    if (!includeLevel) return result.map((x) => x[0]);
     return result;
   }
   
-  dfsOrder(): number[] {
-    const result: number[] = [];
+  dfsOrder(includeLevel = false): number[] | [number, number][] {
+    const result: [number, number][] = [];
   
-    const traverse = (node: TreeNode) => {
-      result.push(node.id);
+    const traverse = (node: TreeNode, level: number) => {
+      result.push([node.id, level]);
       for (const child of node.children) {
-        traverse(child);
+        traverse(child, level + 1);
       }
     };
   
     if (this.root) {
-      traverse(this.root);
+      traverse(this.root, 0);
     }
   
+    if (!includeLevel) return result.map((x) => x[0]);
     return result;
   }  
 

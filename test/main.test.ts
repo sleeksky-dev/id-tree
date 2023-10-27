@@ -220,6 +220,12 @@ describe('Tree', () => {
       tree.addNode(3,6);
       tree.addNode(3,7);
       expect(tree.bfsOrder()).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+      expect(tree.bfsOrder(true)).toEqual([
+        [ 0, 0 ], [ 1, 1 ],
+        [ 2, 1 ], [ 3, 1 ],
+        [ 4, 2 ], [ 5, 2 ],
+        [ 6, 2 ], [ 7, 2 ]
+      ])
     });
   });
 });
@@ -242,6 +248,12 @@ describe('Tree', () => {
       tree.addNode(3,6);
       tree.addNode(3,7);
       expect(tree.dfsOrder()).toEqual([0, 1, 4, 5, 2, 3, 6, 7]);
+      expect(tree.dfsOrder(true)).toEqual([
+        [ 0, 0 ], [ 1, 1 ],
+        [ 4, 2 ], [ 5, 2 ],
+        [ 2, 1 ], [ 3, 1 ],
+        [ 6, 2 ], [ 7, 2 ]
+      ])
     });
   });
 });
