@@ -48,6 +48,17 @@ class Tree {
     return newNode;
   }
 
+  removeNode(id: number): void {
+    const node = this.findNode(id);
+    const parent = this.findParentNode(id);
+
+    if (node === null || parent === null) {
+      return;
+    }
+
+    parent.children = parent.children.filter((child) => child.id !== id);
+  }
+
   findNode(id: number, currentNode: TreeNode | null = this.root): TreeNode | null {
     if (currentNode === null) {
       return null;

@@ -17,6 +17,18 @@ describe('Tree', () => {
     expect(tree.findNode(6)).toBeNull();
   });
 
+  test('Removing nodes', () => {
+    const tree = new Tree();
+    tree.setRoot(0);
+    tree.addNode(0,1);
+    tree.addNode(0,2);
+    tree.addNode(1,11); tree.addNode(1,12);
+    tree.addNode(2,21); tree.addNode(2,22);
+    tree.removeNode(21);
+    tree.removeNode(1);
+    expect(tree.bfsOrder()).toEqual([0, 2, 22]);
+  })
+
   test('Adding duplicate nodes should throw an error', () => {
     const tree = new Tree();
     tree.setRoot(1);
