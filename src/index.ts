@@ -1,10 +1,10 @@
 // 100% coded with ChatGPT including the test cases
-
+type NodeId = number | string;
 class TreeNode {
-  id: number;
+  id: NodeId;
   children: TreeNode[];
 
-  constructor(id: number) {
+  constructor(id: NodeId) {
     this.id = id;
     this.children = [];
   }
@@ -16,19 +16,19 @@ class TreeNode {
 
 class Tree {
   root: TreeNode | null;
-  leafOnlyIds: Set<number>;
+  leafOnlyIds: Set<NodeId>;
 
   constructor() {
     this.root = null;
     this.leafOnlyIds = new Set();
   }
 
-  setRoot(id: number): TreeNode {
+  setRoot(id: NodeId): TreeNode {
     this.root = new TreeNode(id);
     return this.root;
   }
 
-  addNode(parentId: number, id: number): TreeNode | null {
+  addNode(parentId: NodeId, id: NodeId): TreeNode | null {
     if (this.leafOnlyIds.has(parentId)) {
       parentId = this.root?.id || 0;
     }
@@ -48,7 +48,7 @@ class Tree {
     return newNode;
   }
 
-  removeNode(id: number): void {
+  removeNode(id: NodeId): void {
     const node = this.findNode(id);
     const parent = this.findParentNode(id);
 
@@ -59,7 +59,7 @@ class Tree {
     parent.children = parent.children.filter((child) => child.id !== id);
   }
 
-  findNode(id: number, currentNode: TreeNode | null = this.root): TreeNode | null {
+  findNode(id: NodeId, currentNode: TreeNode | null = this.root): TreeNode | null {
     if (currentNode === null) {
       return null;
     }
@@ -78,9 +78,9 @@ class Tree {
     return null;
   }
 
-  bfsOrder(includeLevel = false): number[] | [number, number][] {
+  bfsOrder(includeLevel = false): NodeId[] | [NodeId, NodeId][] {
     const queue: [TreeNode, number][] = [];
-    const result: [number, number][] = [];
+    const result: [NodeId, NodeId][] = [];
   
     if (this.root) {
       queue.push([this.root, 0]);
@@ -98,8 +98,8 @@ class Tree {
     return result;
   }
   
-  dfsOrder(includeLevel = false): number[] | [number, number][] {
-    const result: [number, number][] = [];
+  dfsOrder(includeLevel = false): NodeId[] | [NodeId, NodeId][] {
+    const result: [NodeId, NodeId][] = [];
   
     const traverse = (node: TreeNode, level: number) => {
       result.push([node.id, level]);
@@ -116,7 +116,7 @@ class Tree {
     return result;
   }  
 
-  setLeafs(ids: number[]): void {
+  setLeafs(ids: NodeId[]): void {
     this.leafOnlyIds = new Set(ids);
     this.fixTree(this.root);
   }
@@ -139,7 +139,7 @@ class Tree {
     }
   }
 
-  findParentNode(id: number, currentNode: TreeNode | null = this.root): TreeNode | null {
+  findParentNode(id: NodeId, currentNode: TreeNode | null = this.root): TreeNode | null {
     if (currentNode === null) {
       return null;
     }
@@ -158,7 +158,7 @@ class Tree {
     return null;
   }
 
-  move(nodeId: number, parentId: number, index?: number): void {
+  move(nodeId: NodeId, parentId: NodeId, index?: number): void {
     const node = this.findNode(nodeId);
     const oldParentNode = this.findParentNode(nodeId);
     const newParentNode = this.findNode(parentId);
@@ -261,7 +261,7 @@ class Tree {
     return tree;
   }
 
-  static fromMap(rootId: number, pairs: [number, number][]): Tree {
+  static fromMap(rootId: NodeId, pairs: [NodeId, NodeId][]): Tree {
     const tree = new Tree();
     tree.setRoot(rootId);
 
